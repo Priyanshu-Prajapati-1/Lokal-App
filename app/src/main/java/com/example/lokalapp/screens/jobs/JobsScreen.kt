@@ -140,7 +140,7 @@ fun ErrorMessage(
                 fontSize = 16.sp
             )
         )
-        if (isJobPager){
+        if (isJobPager) {
             IconButton(onClick = { onRefresh() }) {
                 Icon(
                     imageVector = Icons.Default.Refresh, contentDescription = null,

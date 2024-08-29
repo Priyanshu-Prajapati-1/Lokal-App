@@ -18,8 +18,10 @@
         tools:targetApi="31">
         <activity
             android:name=".LokalActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.LokalApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
