@@ -19,9 +19,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -80,7 +82,12 @@ fun JobsScreen(
 
             when (val jobsResource = jobs.value) {
                 is Resource.Error -> {
-                    ErrorMessage("Something went wrong")
+                    ErrorMessage(
+                        message = "Something went wrong",
+                        isJobPager = true
+                    ) {
+                        jobViewModel.getJobs()
+                    }
                 }
 
                 is Resource.Loading -> {
@@ -89,7 +96,7 @@ fun JobsScreen(
 
                 is Resource.Success -> {
                     if (jobsResource.data.isEmpty()) {
-                        ErrorMessage("No jobs found")
+                        EmptyMessage("No jobs found")
                     } else {
                         JobList(
                             navController = navController,
@@ -115,10 +122,15 @@ fun Loader() {
 }
 
 @Composable
-fun ErrorMessage(message: String) {
-    Box(
+fun ErrorMessage(
+    message: String,
+    isJobPager: Boolean = false,
+    onRefresh: () -> Unit = {},
+) {
+    Row(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             modifier = Modifier.padding(horizontal = 25.dp),
@@ -128,6 +140,14 @@ fun ErrorMessage(message: String) {
                 fontSize = 16.sp
             )
         )
+        if (isJobPager){
+            IconButton(onClick = { onRefresh() }) {
+                Icon(
+                    imageVector = Icons.Default.Refresh, contentDescription = null,
+                    tint = Color.Black
+                )
+            }
+        }
     }
 }
 

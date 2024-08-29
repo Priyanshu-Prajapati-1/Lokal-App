@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.example.lokalapp.data.LokalDAO
 import com.example.lokalapp.data.LokalDatabase
 import com.example.lokalapp.network.JobApiService
-import com.example.lokalapp.repository.ConnectivityRepository
 import com.example.lokalapp.repository.JobRepository
 import com.example.lokalapp.utils.Constants
 import dagger.Module
@@ -46,7 +45,6 @@ object LokalModule {
         return JobRepository(jobApiService)
     }
 
-
     @Provides
     @Singleton
     fun provideLokaDAO(lokalDatabase: LokalDatabase): LokalDAO {
@@ -61,11 +59,5 @@ object LokalModule {
             klass = LokalDatabase::class.java,
             name = "lokal_database"
         ).fallbackToDestructiveMigration().build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideConnectivityRepository(@ApplicationContext context: Context): ConnectivityRepository {
-        return ConnectivityRepository(context)
     }
 }

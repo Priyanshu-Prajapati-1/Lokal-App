@@ -56,8 +56,6 @@ fun LokalApp(
     jobViewModel: JobViewModel = hiltViewModel(),
 ) {
 
-    val isOnline = jobViewModel.isOnline.collectAsState(initial = false)
-
     Surface(
         modifier = modifier.fillMaxSize(),
         color = Color.LightGray
@@ -86,22 +84,6 @@ fun LokalApp(
                     .padding(innerPadding)
             ) {
 
-                AnimatedVisibility(
-                    modifier = Modifier.fillMaxWidth(),
-                    visible = !isOnline.value
-                ) {
-                    Text(
-                        text = "No internet connection",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.LightGray),
-                        style = TextStyle(
-                            color = Color.Red,
-                            textAlign = TextAlign.Center,
-                        )
-                    )
-                }
-
                 HorizontalPager(
                     state = bottomPagerState,
                     modifier = Modifier
@@ -121,7 +103,6 @@ fun LokalApp(
                 }
             }
         }
-
     }
 }
 

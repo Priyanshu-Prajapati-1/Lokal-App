@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lokalapp.mappers.jobDataModel
 import com.example.lokalapp.model.JobListModel
-import com.example.lokalapp.repository.ConnectivityRepository
 import com.example.lokalapp.repository.JobRepository
 import com.example.lokalapp.response.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,10 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class JobViewModel @Inject constructor(
     private val jobRepository: JobRepository,
-    private val connectivityRepository: ConnectivityRepository,
 ) : ViewModel() {
-
-    val isOnline = connectivityRepository.isConnected.onEach { if (it) getJobs() }
 
     private var _jobs = MutableStateFlow<Resource<List<JobListModel>>>(Resource.Loading())
     val jobs: StateFlow<Resource<List<JobListModel>>> = _jobs.asStateFlow()

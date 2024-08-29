@@ -40,6 +40,7 @@ import androidx.navigation.NavHostController
 import com.example.lokalapp.model.JobListModel
 import com.example.lokalapp.navigation.LokalScreens
 import com.example.lokalapp.response.Resource
+import com.example.lokalapp.screens.jobs.EmptyMessage
 import com.example.lokalapp.screens.jobs.ErrorMessage
 import com.example.lokalapp.screens.jobs.LoadImage
 import com.example.lokalapp.screens.jobs.Loader
@@ -76,7 +77,7 @@ fun BookMarkScreen(
 
                 when (data.value) {
                     is Resource.Error -> {
-                        ErrorMessage(message = "Something went wrong")
+                        EmptyMessage(message = "Something went wrong")
                     }
 
                     is Resource.Loading -> {
@@ -85,7 +86,7 @@ fun BookMarkScreen(
 
                     is Resource.Success -> {
                         if ((data.value as Resource.Success<List<JobListModel>>).data.isEmpty()) {
-                            ErrorMessage(message = "No Bookmarks")
+                            EmptyMessage(message = "No Bookmarks")
                         } else {
 
                             BookMarkJobList(
